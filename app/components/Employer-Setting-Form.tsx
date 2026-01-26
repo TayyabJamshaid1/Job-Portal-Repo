@@ -390,7 +390,7 @@ export const ImageUpload = ({
   const [isUploading, setIsUploading] = useState(false);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
-  const { startUpload } = useUploadThing("imageUploader", {
+  const { startUpload } = useUploadThing("singleImageUploader", {
     onClientUploadComplete: (res:any) => {
       if (res && res[0]) {
         onChange(res[0].ufsUrl);

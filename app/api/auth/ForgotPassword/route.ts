@@ -33,12 +33,17 @@ console.log(user,'user');
 
     await sendResetEmail(email, resetLink);
 console.log(resetLink,'resetLink');
-
-    return NextResponse.json({
-      success: true,
+ return NextResponse.json(
+      {
+        success: true,
       message: "Password reset email sent",
-    });
+      },
+      { status: 200 }
+    );
+    
   } catch (error) {
-    return NextResponse.json({ success: false, message: "Error" });
-  }
+ return NextResponse.json(
+      { success: false, message: "Password reset Failed" },
+      { status: 500 }
+    );  }
 }

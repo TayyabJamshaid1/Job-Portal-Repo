@@ -27,11 +27,17 @@ console.log(password,'password');
 
     await user.save();
 
-    return NextResponse.json({
-      success: true,
-      message: "Password updated successfully",
-    });
+   return NextResponse.json(
+          {
+            success: true,
+      message: "Password updated Successfully",
+          },
+          { status: 200 }
+        );
   } catch (error) {
-    return NextResponse.json({ success: false });
-  }
+ return NextResponse.json(
+      { success: false,       message: "Password updated failed",},
+      { status: 500 }
+    );
+     }
 }

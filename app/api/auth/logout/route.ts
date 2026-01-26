@@ -25,17 +25,19 @@ export async function GET() {
     const sessionStoredUser = await Session.findOne({ sessionToken });
     await invalidateSession(sessionStoredUser._id.toString());
     cookiesData.delete("session");
-
-    return NextResponse.json({
-      success: true,
+return NextResponse.json(
+      {
+        success: true,
       message: "Successfully Logout",
-      status: 200,
-    });
+      },
+      { status: 200 }
+    );
+    
+   
   } catch (error) {
-    return NextResponse.json({
-      success: false,
-      message: "Registration failed",
-      status: 400,
-    });
+     return NextResponse.json(
+          { success: false, message: "Logout Failed" },
+          { status: 500 }
+        );
   }
 }

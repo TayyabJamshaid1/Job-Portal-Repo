@@ -48,15 +48,18 @@ export async function POST(request: NextRequest) {
     if (alreadyEmailRegistered || alreadyUsernameRegistered) {
       await session.abortTransaction();
 
-      return NextResponse.json({
-        success: false,
-        message: alreadyEmailRegistered
-          ? "User already Registered with this email"
-          : alreadyUsernameRegistered
-          ? "User already Registered with this username"
-          : "User already Registered",
-        status: 400,
-      });
+    return NextResponse.json(
+  {
+    success: false,
+    message: alreadyEmailRegistered
+      ? "User already Registered with this email"
+      : alreadyUsernameRegistered
+      ? "User already Registered with this username"
+      : "User already Registered",
+  },
+  { status: 400 }
+);
+
     }
 
     const user = await User.create({
@@ -84,20 +87,22 @@ export async function POST(request: NextRequest) {
     await createSessionAndSetCookies(id);
     await session.commitTransaction();
     session.endSession();
-    return NextResponse.json({
-      role: user?.role,
-      success: true,
+    return NextResponse.json(
+          {
+            success: true,
+            role: user.role,
       message: "User Registered Successfully",
-      status: 200,
-    });
+          },
+          { status: 200 }
+        );
+   
   } catch (error) {
     console.log(error, "error");
     await session.abortTransaction();
-
-    return NextResponse.json({
-      success: false,
-      message: "Registration failed",
-      status: 400,
-    });
+ return NextResponse.json(
+      { success: false,       message: "Registration failed",},
+      { status: 500 }
+    );
+   
   }
 }

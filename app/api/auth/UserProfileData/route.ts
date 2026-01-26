@@ -5,11 +5,11 @@ import { validateSessionAndGetUser } from "../use-cases/sessions";
 import Applicant from "@/models/Applicant";
 import Employer from "@/models/Employer";
 
-export async function GET() {
+export async function GET(): Promise<Response> {
   try {
     await ConnectToDatabase();
 
-    const cookieStore = await cookies();
+    const cookieStore = await cookies(); // ✅ REQUIRED in Next 16
     const session = cookieStore.get("session")?.value;
 
     if (!session) {

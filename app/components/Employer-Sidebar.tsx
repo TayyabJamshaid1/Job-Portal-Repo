@@ -1,0 +1,106 @@
+"use client";
+
+import { handleLogout } from "@/lib/AuthActions";
+import { cn } from "@/lib/utils";
+import { useMutation } from "@tanstack/react-query";
+// import { cn } from "@/lib/utils";
+import {
+  LayoutDashboard,
+  User,
+  Plus,
+  Briefcase,
+  Bookmark,
+  CreditCard,
+  Building,
+  Settings,
+  LogOut,
+} from "lucide-react";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+// import { URLPattern } from "next/server";
+import { toast } from "react-toastify";
+
+const base = "/employer";
+
+const navigationItems = [
+  { name: "Overview", icon: LayoutDashboard, href: base + "/dashboard" },
+ 
+  { name: "Employers Profile", icon: User },
+  { name: "Post a Job", icon: Plus ,href: base + "/jobs/createJobs",},
+  { name: "My Jobs", icon: Briefcase   , href: base + "/jobs/listJobs",
+ },
+  { name: "Saved Candidate", icon: Bookmark },
+  { name: "Plans & Billing", icon: CreditCard },
+  { name: "All Companies", icon: Building },
+  { name: "Settings", icon: Settings, href: base + "/setting" },
+];
+
+const EmployerSidebar = () => {
+  const router = useRouter();
+  const pathname = usePathname();
+  console.log("usepathname: ", pathname);
+
+  function isLinkActive(href: string, pathname: string) {
+    if (!href || href === "#") return false;
+
+    // exact match
+    if (pathname === href) return true;
+
+    // nested routes: /employer/dashboard/anything
+    return pathname.startsWith(href + "/");
+  }
+
+  const { mutate: LogoutUser } = useMutation({
+    mutationFn: handleLogout,
+    onSuccess: async (res) => {
+      if (res?.success) {
+        toast.success(res?.message);
+        router.push("/login");
+      } else {
+        toast.error(res?.message);
+      }
+    },
+  });
+  return (
+    <div className="w-64 bg-card border-r border-border fixed bottom-0 top-0">
+      <div className="p-6">
+        <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wide">
+          Employers Dashboard
+        </h2>
+      </div>
+
+      <nav className="px-3 space-y-1">
+        {navigationItems.map((curNav) => {
+          const Icon = curNav.icon;
+
+          return (
+            <Link
+              key={curNav.name}
+              href={curNav.href || "#"}
+              className={cn(
+                "flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg transition-colors",
+                isLinkActive(curNav.href || "", pathname) &&
+                  "text-primary bg-blue-300"
+              )}
+            >
+              <Icon />
+              {curNav.name}
+            </Link>
+          );
+        })}
+      </nav>
+
+      {/* <div className="absolute bottom-6 left-3 right-3"> */}
+      <button
+        onClick={() => LogoutUser()}
+        className="flex items-center gap-3 px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent rounded-lg transition-colors w-full"
+      >
+        <LogOut className="h-4 w-4" />
+        Log-out
+      </button>
+      {/* </div> */}
+    </div>
+  );
+};
+
+export default EmployerSidebar;

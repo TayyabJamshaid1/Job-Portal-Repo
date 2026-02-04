@@ -6,6 +6,7 @@ import React, {
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
 
 import { Eye, EyeOff, Lock, Mail, User, UserCheck } from "lucide-react";
 import {
@@ -164,6 +165,24 @@ const LoginComponent: React.FC = () => {
                 </Link>
               </p>
             </div>
+<Button
+  type="button"
+  variant="outline"
+  className="w-full flex gap-2"
+  onClick={() => signIn("google", { callbackUrl: "/employer/dashboard" })}
+>
+  <img src="/google.svg" alt="google" className="w-4 h-4" />
+  Continue with Google
+</Button>
+<Button
+  type="button"
+  variant="outline"
+  className="w-full flex gap-2"
+  onClick={() => signIn("github", { callbackUrl: "/employer/dashboard" })}
+>
+  <img src="/github.svg" className="w-4 h-4" />
+  Continue with GitHub
+</Button>
 
                 <div className="text-center">
               <p className="text-sm text-muted-foreground">

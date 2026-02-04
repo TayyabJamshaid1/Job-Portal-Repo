@@ -11,6 +11,7 @@ export interface IUser {
   createdAt?: Date;
   updatedAt?: Date;
   resetPasswordToken?: string;
+  provider:string;
   resetPasswordExpiry?: Date;
   role: string;
   deletedAt?: Date;
@@ -28,8 +29,13 @@ const userSchema = new Schema<IUser>(
     },
     userName: {
       type: String,
-      required: true,
-      unique: true,
+    required: function (this: IUser): boolean {
+    return this.provider === "credentials";
+  }},
+   provider: {
+      type: String,
+      enum: ["credentials", "google","github"],
+      default: "credentials",
     },
    role: {
       type: String,
@@ -37,13 +43,17 @@ const userSchema = new Schema<IUser>(
       default: "applicant",
       required: true,
     },
-    phoneNumber: {
+       phoneNumber: {
       type: String,
-      required: true,
+      required: function (this: IUser): boolean {
+    return this.provider === "credentials";
+  },
     },
     password: {
       type: String,
-      required: true,
+   required: function (this: IUser): boolean {
+    return this.provider === "credentials";
+  },
     },
     resetPasswordToken: {
       type: String,

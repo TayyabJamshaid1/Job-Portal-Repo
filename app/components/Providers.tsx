@@ -12,10 +12,12 @@ export const queryClient = new QueryClient({
 });
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
+    <SessionProvider>
     <QueryClientProvider client={queryClient}>
       {/* <SessionProvider refetchInterval={5 * 60}> */}
           {children} <ReactQueryDevtools initialIsOpen={false} />
       {/* </SessionProvider> */}
     </QueryClientProvider>
+    </SessionProvider>
   );
 }

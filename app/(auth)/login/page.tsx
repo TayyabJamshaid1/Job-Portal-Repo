@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
 
-import { Eye, EyeOff, Lock, Mail, User, UserCheck } from "lucide-react";
+import { Eye, EyeOff, Github, Lock, Mail, RectangleGogglesIcon, User, UserCheck } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -161,28 +161,30 @@ const LoginComponent: React.FC = () => {
                   href="/register"
                   className="text-primary hover:text-primary/80 font-medium underline-offset-4 hover:underline"
                 >
-                  Register here
+                 {" "} Register here
                 </Link>
               </p>
             </div>
+            <div className="w-full flex justify-between items-center gap-3">
 <Button
   type="button"
   variant="outline"
-  className="w-full flex gap-2"
+  className="w-[48%] flex gap-2"
   onClick={() => signIn("google", { callbackUrl: "/employer/dashboard" })}
 >
-  <img src="/google.svg" alt="google" className="w-4 h-4" />
+<RectangleGogglesIcon/>
   Continue with Google
 </Button>
 <Button
   type="button"
   variant="outline"
-  className="w-full flex gap-2"
+  className="w-[48%] flex gap-2"
   onClick={() => signIn("github", { callbackUrl: "/employer/dashboard" })}
 >
-  <img src="/github.svg" className="w-4 h-4" />
+<Github/>
   Continue with GitHub
 </Button>
+</div>
 
                 <div className="text-center">
               <p className="text-sm text-muted-foreground">

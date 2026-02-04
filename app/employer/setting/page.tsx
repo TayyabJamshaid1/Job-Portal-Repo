@@ -9,7 +9,7 @@ const SettingEmployer = () => {
     queryKey: ["userInfo"],
     queryFn: UserProfile,
     staleTime: 1000 * 60 * 5,
-  });
+  });  
   if (!user?.profileData) return <Loader className="w-4 h-4 animate-spin" />;
 
   return (

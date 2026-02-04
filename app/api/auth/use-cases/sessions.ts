@@ -72,7 +72,6 @@ export const validateSessionAndGetUser = async (session: string) => {
     .createHash("sha-256")
     .update(session)
     .digest("hex");
-  console.log(sessionToken, " sessionToken");
   await ConnectToDatabase();
   const sessionStoredUser = await Session.findOne({ sessionToken }).populate(
     "userId",

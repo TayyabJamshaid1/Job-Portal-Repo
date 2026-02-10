@@ -48,10 +48,10 @@ const LoginComponent: React.FC = () => {
            console.log(res,'res');
            
            if (res.role == "employer"){
-           router.push("/employer/dashboard");
+           router.replace("/employer/dashboard");
      
            }else{
-           router.push("/applicant/dashboard");
+           router.replace("/applicant/dashboard");
      
            }
          } else {

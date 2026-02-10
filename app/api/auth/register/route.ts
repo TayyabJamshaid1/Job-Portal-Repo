@@ -13,6 +13,7 @@ import { registerUserSchema } from "../register.schema";
 //4-Create new User
 //5-Return Response
 export async function POST(request: NextRequest) {
+  await ConnectToDatabase();
   const session = await mongoose.startSession();
   session.startTransaction();
   try {
@@ -41,7 +42,6 @@ export async function POST(request: NextRequest) {
       });
     }
     //check user is already avaiable or not,for this hamai phly check krna pary ga k user database k sath connected ha ya ni
-    await ConnectToDatabase();
     const alreadyEmailRegistered = await User.findOne({ email });
     const alreadyUsernameRegistered = await User.findOne({ userName });
 

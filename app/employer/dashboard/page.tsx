@@ -3,7 +3,7 @@
 // import { handleUserLogout } from '@/app/login/login.action'
 import React, { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { handleLogout, UserProfile } from "@/lib/AuthActions";
+import { UserProfile } from "@/lib/AuthActions";
 import { StatsCards } from "@/app/components/Employer-Stats";
 import { EmployerProfileCompletionStatus } from "@/app/components/Employer-Profile-Status";
 

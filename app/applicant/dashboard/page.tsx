@@ -1,10 +1,9 @@
 "use client";
 
 import { logoutAction } from "@/app/(auth)/server/action";
-import { handleLogout, UserProfile } from "@/lib/AuthActions";
+import { UserProfile } from "@/lib/AuthActions";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { toast } from "react-toastify";
 
 const ApplicantDashboard = () => {

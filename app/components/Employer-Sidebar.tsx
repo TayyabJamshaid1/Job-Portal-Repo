@@ -19,6 +19,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 // import { URLPattern } from "next/server";
 import { toast } from "react-toastify";
+import { logoutAction } from "../(auth)/server/action";
 
 const base = "/employer";
 
@@ -51,13 +52,15 @@ const EmployerSidebar = () => {
   }
 
   const { mutate: LogoutUser } = useMutation({
-    mutationFn: handleLogout,
+    mutationFn: logoutAction,
     onSuccess: async (res) => {
-      if (res?.success) {
-        toast.success(res?.message);
-        router.push("/login");
+      if (res?.error) {
+                toast.error(res?.message);
+
+        
       } else {
-        toast.error(res?.message);
+        toast.success(res?.message);
+        router.replace("/login");
       }
     },
   });

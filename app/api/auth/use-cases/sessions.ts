@@ -77,7 +77,7 @@ export const validateSessionAndGetUser = async (session: string) => {
     "userId",
     "-password"
   );
-  console.log(sessionStoredUser, " sessionStored");
+  // console.log(sessionStoredUser, " sessionStored");
 
   if (!sessionStoredUser) return null;
   //if user using website after 30 days,then we will make him logout and session will be deleted

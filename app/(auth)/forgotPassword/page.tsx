@@ -16,8 +16,8 @@ import {
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { handleForgotPassword } from "@/lib/AuthActions";
 import { ForgotPasswordSchema } from "@/app/api/auth/register.schema";
+import { forgotPasswordAction } from "../server/action";
 
 const ForgotComponent: React.FC = () => {
   const {
@@ -30,11 +30,15 @@ const ForgotComponent: React.FC = () => {
   });
 
   const handleFormSubmit = async (data: any) => {
-    const res = await handleForgotPassword(data);
-    if (res?.success) {
-      toast.success(res?.message);
-    } else {
+     const formData = new FormData();
+    formData.append("email", data.email);
+
+    const res = await forgotPasswordAction(formData);
+    if (res?.error)  {
       toast.error(res?.message);
+    }else{
+    toast.success(res?.message);
+
     }
   };
 

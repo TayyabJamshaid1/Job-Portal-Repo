@@ -1,8 +1,6 @@
 "use client";
 import { Input } from "@/components/ui/input";
-import React, {
-  useState,
-} from "react";
+import React, { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -22,10 +20,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { handleresetPassword } from "@/lib/AuthActions";
 import { resetPasswordSchema } from "@/app/api/auth/register.schema";
-
+import { resetPasswordAction } from "../server/action";
 
 const ResetComponent: React.FC = () => {
-  const token = useSearchParams().get("token")||"";
+  const token = useSearchParams().get("token") || "";
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const {
@@ -40,21 +38,23 @@ const ResetComponent: React.FC = () => {
 
   const handleFormSubmit = async (data: any) => {
     console.log(data);
-    const payload={token,password:data?.password}
-        console.log(payload);
 
-    const res = await handleresetPassword(payload);
+    const formData = new FormData();
+    formData.append("token", token);
+    formData.append("password", data?.password);
+
+    const res = await resetPasswordAction(formData);
     console.log(res, "res in resett");
 
-    if (res?.success) {
-      toast.success(res?.message);
-      router.push("/login");
-    } else {
-      toast.error(res?.message);
-    }
+   if (res?.error)  {
+         toast.error(res?.message);
+       }else{
+       toast.success(res?.message);
+   router.replace("/login")
+       }
   };
 
-console.log(errors);
+  console.log(errors);
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4">

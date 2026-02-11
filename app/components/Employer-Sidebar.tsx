@@ -1,6 +1,5 @@
 "use client";
 
-import { handleLogout } from "@/lib/AuthActions";
 import { cn } from "@/lib/utils";
 import { useMutation } from "@tanstack/react-query";
 // import { cn } from "@/lib/utils";

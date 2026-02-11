@@ -17,8 +17,6 @@ import { toast } from "react-toastify";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-
-import { handleresetPassword } from "@/lib/AuthActions";
 import { resetPasswordSchema } from "@/app/api/auth/register.schema";
 import { resetPasswordAction } from "../server/action";
 

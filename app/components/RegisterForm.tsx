@@ -26,9 +26,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useRouter } from "next/navigation";
-
-import { registerUser } from "@/lib/AuthActions";
 import { registerUserWithConfirmSchema } from "@/app/api/auth/register.schema";
 import { registerAction } from "../(auth)/server/action";
 export interface RegisterForm {

@@ -11,10 +11,25 @@ export async function getCurrentUser() {
 
   if (!sessionData) return null;
 
-  return {
-    id: sessionData?.userId?._id.toString(),
-    role: sessionData?.userId?.role,
-    email: sessionData?.userId?.email,
-    name: sessionData?.userId?.name,
-  };
+ return {
+  sessionId: sessionData._id.toString(),
+  sessionToken: sessionData.sessionToken,
+  userAgent: sessionData.userAgent,
+  ip: sessionData.ip,
+  expiresAt: sessionData.expiresAt,
+  createdAt: sessionData.createdAt,
+
+  user: {
+    id: sessionData.userId._id.toString(),
+    email: sessionData.userId.email,
+    name: sessionData.userId.name,
+    role: sessionData.userId.role,
+    provider: sessionData.userId.provider,
+    phoneNumber: sessionData.userId.phoneNumber,
+    userName: sessionData.userId.userName,
+    createdAt: sessionData.userId.createdAt,
+    updatedAt: sessionData.userId.updatedAt,
+  },
+};
+
 }

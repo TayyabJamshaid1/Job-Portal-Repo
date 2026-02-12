@@ -35,13 +35,13 @@ import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth";
 
 export default async function HomePage() {
-  const user = await getCurrentUser();
+  const sessionData = await getCurrentUser();
 
-  if (!user) redirect("/login");
+  if (!sessionData) redirect("/login");
 
-  if (user.role === "applicant") redirect("/applicant/dashboard");
-  if (user.role === "employer") redirect("/employer/dashboard");
-  if (user.role === "admin") redirect("/admin/dashboard");
+  if (sessionData.user.role === "applicant") redirect("/applicant/dashboard");
+  if (sessionData.user.role === "employer") redirect("/employer/dashboard");
+  if (sessionData.user.role === "admin") redirect("/admin/dashboard");
 
   return null;
 }

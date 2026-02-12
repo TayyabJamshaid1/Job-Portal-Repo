@@ -6,7 +6,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(request: NextRequest) {
   try {
     const currentUser = await getCurrentUser();
-    if (currentUser?.role !== "employer") {
+    if (currentUser?.user?.role !== "employer") {
       return NextResponse.json({
         success: false,
         message: "Not Valid User",
@@ -53,7 +53,7 @@ export async function POST(request: NextRequest) {
       salaryCurrency,
       minimumEducation,
       expiresAt,
-      employerId: currentUser.id,
+      employerId: currentUser.user.id,
     });
     console.log(job, "job");
 

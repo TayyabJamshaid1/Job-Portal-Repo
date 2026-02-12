@@ -49,9 +49,9 @@ export const ourFileRouter = {
     },
   })
     .middleware(async ({ req }) => {
-      const user = await getCurrentUser();
-      if (!user) throw new UploadThingError("Unauthorized");
-      return { userId: user.id };
+      const currentUser = await getCurrentUser();
+      if (!currentUser) throw new UploadThingError("Unauthorized");
+      return { userId: currentUser.user.id };
     })
     .onUploadComplete(async ({ metadata, file }) => {
       console.log("Single upload complete for userId:", metadata.userId);
@@ -71,9 +71,9 @@ export const ourFileRouter = {
     },
   })
     .middleware(async ({ req }) => {
-      const user = await getCurrentUser();
-      if (!user) throw new UploadThingError("Unauthorized");
-      return { userId: user.id };
+      const currentUser = await getCurrentUser();
+      if (!currentUser) throw new UploadThingError("Unauthorized");
+      return { userId: currentUser.user.id };
     })
     .onUploadComplete(async ({ metadata, file }) => {
       console.log("Multiple uploads complete for userId:", metadata.userId);

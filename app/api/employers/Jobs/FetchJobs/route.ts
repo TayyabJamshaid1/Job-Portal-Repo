@@ -6,7 +6,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(request: NextRequest) {
   try {
     const currentUser = await getCurrentUser();
-    if (currentUser?.role !== "employer") {
+    if (currentUser?.user.role !== "employer") {
       return NextResponse.json({
         success: false,
         message: "Not Valid User",

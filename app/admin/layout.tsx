@@ -21,10 +21,10 @@ export default async function ApplicantLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const user = await getCurrentUser();
+  const sessionData = await getCurrentUser();
 
-  if (!user) redirect("/login");
-if (user.role !== "admin") redirect("/");
+  if (!sessionData) redirect("/login");
+if (sessionData.user.role !== "admin") redirect("/");
 
   return <>{children}</>;
 }
